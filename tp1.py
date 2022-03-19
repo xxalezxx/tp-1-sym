@@ -126,11 +126,12 @@ def main(stdscr):
   mostrarMatriz(stdscr)
   teclaIngreso = stdscr.getch()
   cicloVida = 1
+  ciclosMaximos = 200
   while teclaIngreso != ord('q'):
     if(teclaIngreso == ord('b') or inicializarProceso):
       comenzarProceso(stdscr, cicloVida)
       inicializarProceso = True
-      cicloVida += 1   
+      cicloVida += 1 
     if(teclaIngreso == ord('r') and inicializarProceso):
       reiniciarProceso(stdscr);
       inicializarProceso = False
@@ -138,9 +139,9 @@ def main(stdscr):
     if(teclaIngreso == ord('a')):
       reiniciarProceso(stdscr)
       cicloVida = 1
-      while(teclaIngreso != ord('r')):
+      while(cicloVida <= ciclosMaximos):
         comenzarProceso(stdscr, cicloVida)
-        time.sleep(0.2)  
+        time.sleep(0.2)
         cicloVida+=1
  
     teclaIngreso = stdscr.getch()
