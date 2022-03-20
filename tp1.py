@@ -22,7 +22,7 @@ def inicializarColoresTerminal():
 def inicializarMensajeBienvenida(stdscr):
   stdscr.clear()
   stdscr.addstr(0,0,"TP - 1 / Simulacion & Modelizacion / 2022 - 1C", curses.color_pair(1))
-  stdscr.addstr(1,0,"Para salir de programa 'Q', para procesar 'B', para reiniciar proceso 'R', modo automatico 'A'", curses.color_pair(2))
+  stdscr.addstr(1,0,"Para salir de programa 'Q', para procesar 'B', para reiniciar proceso 'R', modo automatico 'A', menu 'M'", curses.color_pair(2))
   stdscr.refresh()
 
 def obtenerMatriz(nombreArchivo):
@@ -97,13 +97,13 @@ def imprimirCasila(celula, fila, columna, screen):
   except:
     pass
   
-def reiniciarProceso(stdscr):
+def reiniciarProceso(stdscr, pathArchivo):
   stdscr.clear()
   stdscr.refresh()
   global matriz
   matriz = np.zeros((27, 27))
   inicializarMensajeBienvenida(stdscr)
-  archivoPlano = obtenerMatriz('./input.txt')
+  archivoPlano = obtenerMatriz(pathArchivo)
   cargarMatriz(archivoPlano)
   mostrarMatriz(stdscr)
   
@@ -117,27 +117,65 @@ def comenzarProceso(stdscr, cicloVida):
   except:
     pass
 
+def seleccionArchivo(stdscr):
+  stdscr.clear()
+  stdscr.addstr(5,2, 'Oscillators - ')
+  stdscr.addstr(5,16, 'Blinker : \t{1}')
+  stdscr.addstr(6,16, 'Toad : \t\t{2}')
+  stdscr.addstr(7,2, 'Spaceships - ')
+  stdscr.addstr(7,16, 'Glider : \t{3}')
+  stdscr.addstr(8,16, 'Light-weight : \t{4}')
+  stdscr.addstr(8,2, 'Still lifes - ')
+  stdscr.addstr(9,16, 'Bee-hive \t{5}')
+  stdscr.addstr(10,16, 'Block \t\t{6}')
+  stdscr.refresh() 
+  
+  teclaIngreso = stdscr.getch()  
+  match teclaIngreso:
+    case 49: 
+      return './Oscillators/Blinker/input.txt'
+    case 50:
+      return './Oscillators/Toad/input.txt'
+    case 51:
+      return './Spaceships/Glider/input.txt'
+    case 52:
+      return './Spaceships/Light-weight spaceship/input.txt'
+    case 53:
+      return './Still lifes/Bee-hive/input.txt'
+    case 54:
+      return './Still lifes/block/input.txt'
+      
+       
+   
+  
+
 def main(stdscr):
+  pathArchivo = 'Oscillators/Blinker/input.txt'
   inicializarColoresTerminal()
   inicializarMensajeBienvenida(stdscr)
   inicializarProceso = False
-  archivoPlano = obtenerMatriz('./input.txt')
+  archivoPlano = obtenerMatriz(pathArchivo)
   cargarMatriz(archivoPlano)
   mostrarMatriz(stdscr)
-  teclaIngreso = stdscr.getch()
   cicloVida = 1
   ciclosMaximos = 200
+  teclaIngreso = stdscr.getch()
   while teclaIngreso != ord('q'):
+    if(teclaIngreso == ord('m')):
+      pathArchivo = seleccionArchivo(stdscr)
+      reiniciarProceso(stdscr, pathArchivo);
+      inicializarProceso = False
+      cicloVida = 1
     if(teclaIngreso == ord('b') or inicializarProceso):
       comenzarProceso(stdscr, cicloVida)
       inicializarProceso = True
       cicloVida += 1 
     if(teclaIngreso == ord('r') and inicializarProceso):
-      reiniciarProceso(stdscr);
+      reiniciarProceso(stdscr, pathArchivo);
       inicializarProceso = False
       cicloVida = 1
     if(teclaIngreso == ord('a')):
-      reiniciarProceso(stdscr)
+      reiniciarProceso(stdscr,pathArchivo)
       cicloVida = 1
       while(cicloVida <= ciclosMaximos):
         comenzarProceso(stdscr, cicloVida)
