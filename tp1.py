@@ -119,15 +119,16 @@ def comenzarProceso(stdscr, cicloVida):
 
 def seleccionArchivo(stdscr):
   stdscr.clear()
-  stdscr.addstr(5,2, 'Oscillators - ')
+  stdscr.addstr(5,2, 'Oscillators - ', curses.color_pair(3))
   stdscr.addstr(5,16, 'Blinker : \t{1}')
   stdscr.addstr(6,16, 'Toad : \t\t{2}')
-  stdscr.addstr(7,2, 'Spaceships - ')
+  stdscr.addstr(7,2, 'Spaceships  - ', curses.color_pair(3))
   stdscr.addstr(7,16, 'Glider : \t{3}')
   stdscr.addstr(8,16, 'Light-weight : \t{4}')
-  stdscr.addstr(8,2, 'Still lifes - ')
+  stdscr.addstr(8,2, 'Still lifes - ', curses.color_pair(3))
   stdscr.addstr(9,16, 'Bee-hive \t{5}')
   stdscr.addstr(10,16, 'Block \t\t{6}')
+  stdscr.addstr(13,2, 'Seleccione el numero para el archivo deseado', curses.color_pair(2))
   stdscr.refresh() 
   
   teclaIngreso = stdscr.getch()  
@@ -144,10 +145,6 @@ def seleccionArchivo(stdscr):
       return './Still lifes/Bee-hive/input.txt'
     case 54:
       return './Still lifes/block/input.txt'
-      
-       
-   
-  
 
 def main(stdscr):
   pathArchivo = 'Oscillators/Blinker/input.txt'
@@ -158,7 +155,7 @@ def main(stdscr):
   cargarMatriz(archivoPlano)
   mostrarMatriz(stdscr)
   cicloVida = 1
-  ciclosMaximos = 200
+  ciclosMaximos = 100
   teclaIngreso = stdscr.getch()
   while teclaIngreso != ord('q'):
     if(teclaIngreso == ord('m')):
@@ -179,7 +176,7 @@ def main(stdscr):
       cicloVida = 1
       while(cicloVida <= ciclosMaximos):
         comenzarProceso(stdscr, cicloVida)
-        time.sleep(0.2)
+        time.sleep(0.1)
         cicloVida+=1
  
     teclaIngreso = stdscr.getch()
