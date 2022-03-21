@@ -125,7 +125,7 @@ def seleccionArchivo(stdscr):
   stdscr.addstr(7,2, 'Spaceships  - ', curses.color_pair(3))
   stdscr.addstr(7,16, 'Glider : \t{3}')
   stdscr.addstr(8,16, 'Light-weight : \t{4}')
-  stdscr.addstr(8,2, 'Still lifes - ', curses.color_pair(3))
+  stdscr.addstr(9,2, 'Still lifes - ', curses.color_pair(3))
   stdscr.addstr(9,16, 'Bee-hive \t{5}')
   stdscr.addstr(10,16, 'Block \t\t{6}')
   stdscr.addstr(13,2, 'Seleccione el numero para el archivo deseado', curses.color_pair(2))
